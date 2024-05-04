@@ -13,15 +13,15 @@ session_start(); ?>
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
+        </script>
 </head>
 
 <body>
     <nav class="navbar text-center p-3 ">
         <?php if (!isset($_SESSION['id'])): ?>
-        <a href="index.php">Log-in</a>
+            <a href="index.php">Log-in</a>
         <?php elseif (isset($_SESSION['id'])): ?>
-        <a href="../scripts/sign-out/sign-out.php">Disconnect</a>
+            <a href="../scripts/sign-out/sign-out.php">Disconnect</a>
         <?php endif;
 
         //connect to db
@@ -38,8 +38,8 @@ session_start(); ?>
 
     <div>
         <?php if (isset($_SESSION['id'])): ?>
-        <p>Connecté en tant que <?php echo htmlspecialchars($user) ?></p>
+            <p>Connecté en tant que <?php echo htmlspecialchars($user) ?></p>
         <?php else: ?>
-        <p>Non connecté</p>
+            <p>Non connecté</p>
         <?php endif; ?>
     </div>
