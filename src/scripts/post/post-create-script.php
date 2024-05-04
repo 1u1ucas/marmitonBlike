@@ -24,14 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
         }
     }
 
+
     $title = $_POST['title'];
     $ingredient = $_POST['ingredients'];
     $etape = $_POST['etapes'];
     $userid = $_SESSION['id'];
 
-
     if (empty($title) || empty($ingredient) || empty($etape)) {
-        header("Location: ../../recepy.php?error=Veuillez renseigner un titre, les ingrédients et les étapes.");
+        header("Location: ../../createRecepy.php?error=Veuillez renseigner un titre, les ingrédients et les étapes.");
         exit();
     }
 
@@ -45,13 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
     $request->bindParam(':image', $image);
 
     if (!$request->execute()) {
-        header("Location: ../../recepy.php?error=Une erreur s'est produite lors de l'ajout du post.");
+        header("Location: ../../createRecepy.php?error=Une erreur s'est produite lors de l'ajout du post.");
         exit();
     }
-
     header('Location: ../../recepy.php?success=Le post a bien été ajouté');
     exit();
 } else {
-    header("Location: ../../recepy.php?error=Seuls les fichiers photos (JPEG, JPG, PNG, GIF) et les fichiers PDF sont autorisés.");
+    header("Location: ../../createRecepy.php?error=Seuls les fichiers photos (JPEG, JPG, PNG, GIF) et les fichiers PDF sont autorisés.");
     exit();
 }
