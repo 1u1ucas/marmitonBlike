@@ -19,7 +19,7 @@ services:
       - db
     image: phpmyadmin/phpmyadmin:latest
     ports:
-      - 8000:80
+      - 8020:80
     restart: always
     environment:
       PMA_HOST: db
@@ -28,7 +28,7 @@ services:
   app:
     build: ./php
     ports:
-      - 8001:80
+      - 8021:80
     volumes:
       - ./src:/var/www/html
     environment:
