@@ -8,6 +8,7 @@ require_once 'parts/header.php';
         <span class="toolTipText">Paste</span>
     </button>
 </form>
+<div class="gap"></div>
 <form id='create-post' action="scripts/post/post-create-script.php" method="POST" enctype="multipart/form-data">
 
     <div class="mb-3">

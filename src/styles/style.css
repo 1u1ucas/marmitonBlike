@@ -176,4 +176,8 @@ body {
 .toolTip:hover .toolTipText {
   visibility: visible;
   opacity: 1;
+}
+
+.gap {
+  padding: 20px;
 }/*# sourceMappingURL=style.css.map */
