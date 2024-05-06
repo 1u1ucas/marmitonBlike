@@ -3,6 +3,11 @@
 $email = $_POST['email'];
 $password = $_POST['password'];
 
+if (empty($email) || empty($password)) {
+    header("Location: ../../index.php?error=Veuillez renseigner un email et un password");
+    die(); // stop the script
+}
+
 
 //connect to db
 $connectDatabase = new PDO("mysql:host=db;dbname=wordpress", "root", "admin");

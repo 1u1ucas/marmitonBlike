@@ -47,22 +47,22 @@ $recepy = $request->fetchAll(PDO::FETCH_ASSOC);
         <input type="hidden" id="combinedIngredients" name="ingredients">
         <input type="hidden" id="combinedEtapes" name="etapes">
     </div>
-    <div class="mb-3">
-        <input type="checkbox" name="private" value="0" <?php echo ($recepy['0']['private'] == 0) ? 'checked' : '' ?>>
-        private
+    <div>
+        <input type="checkbox" name="private" value="1" <?php echo ($recepy['0']['private'] == 1) ? 'checked' : '' ?>>
+        public
     </div>
     <?php var_dump($recepy['0']['private']) ?>
 
     <?php if (isset($_GET['error'])): ?>
-    <div class="alert alert-danger">
-        <?php echo $_GET['error']; ?>
-    </div>
+        <div class="alert alert-danger">
+            <?php echo $_GET['error']; ?>
+        </div>
     <?php endif; ?>
 
     <?php if (isset($_GET['success'])): ?>
-    <div class="alert alert-success">
-        <?php echo $_GET['success']; ?>
-    </div>
+        <div class="alert alert-success">
+            <?php echo $_GET['success']; ?>
+        </div>
     <?php endif; ?>
 
     <input type="hidden" name="recepy_id" value="<?php echo $id; ?>">
@@ -70,108 +70,108 @@ $recepy = $request->fetchAll(PDO::FETCH_ASSOC);
 </form>
 
 <script>
-document.getElementById('add-ingredient').addEventListener('click', function() {
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.className = ' formControl size';
-    input.placeholder = 'Ingredient';
-    input.name = 'ingredient';
-    document.getElementById('ingredients').appendChild(input);
-});
-
-document.getElementById('remove-ingredient').addEventListener('click', function() {
-    var ingredientsDiv = document.getElementById('ingredients');
-    if (ingredientsDiv.children.length > 1) {
-        ingredientsDiv.removeChild(ingredientsDiv.lastChild);
-    }
-});
-
-
-document.getElementById('add-etape').addEventListener('click', function() {
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.className = ' formControl size';
-    input.placeholder = 'Etape';
-    input.name = 'etape';
-    document.getElementById('etapes').appendChild(input);
-});
-
-document.getElementById('remove-etape').addEventListener('click', function() {
-    var etapesDiv = document.getElementById('etapes');
-    if (etapesDiv.children.length > 1) {
-        etapesDiv.removeChild(etapesDiv.lastChild);
-    }
-});
-
-document.querySelector('form').addEventListener('submit', function(e) {
-    var ingredients = Array.from(document.querySelectorAll('[name="ingredient"]')).map(function(input) {
-        return input.value;
-    });
-    var etapes = Array.from(document.querySelectorAll('[name="etape"]')).map(function(input) {
-        return input.value;
-    });
-    document.querySelector('[name="ingredients"]').value = ingredients.join(';');
-    document.querySelector('[name="etapes"]').value = etapes.join(';');
-
-
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var ingredients = "<?php echo $recepy['0']['ingredient']; ?>".split(';');
-    var etapes = "<?php echo $recepy['0']['etape']; ?>".split(';');
-
-    ingredients.forEach(function(ingredient, index) {
-        if (index === 0) {
-            var input = document.querySelector('[name="ingredient"]');
-            input.value = ingredient;
-        } else {
-            var input = document.createElement('input');
-            input.type = 'text';
-            input.className = ' formControl size';
-            input.placeholder = 'Ingredient';
-            input.name = 'ingredient';
-            input.value = ingredient;
-            document.getElementById('ingredients').appendChild(input);
-        }
-
+    document.getElementById('add-ingredient').addEventListener('click', function () {
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.className = ' formControl size';
+        input.placeholder = 'Ingredient';
+        input.name = 'ingredient';
+        document.getElementById('ingredients').appendChild(input);
     });
 
-    etapes.forEach(function(etape, index) {
-        if (index === 0) {
-            var input = document.querySelector('[name="etape"]');
-            input.value = etape;
-        } else {
-            var input = document.createElement('input');
-            input.type = 'text';
-            input.className = ' formControl size';
-            input.placeholder = 'Etape';
-            input.name = 'etape';
-            input.value = etape;
-            document.getElementById('etapes').appendChild(input);
+    document.getElementById('remove-ingredient').addEventListener('click', function () {
+        var ingredientsDiv = document.getElementById('ingredients');
+        if (ingredientsDiv.children.length > 1) {
+            ingredientsDiv.removeChild(ingredientsDiv.lastChild);
         }
     });
-});
 
-document.querySelector('form').addEventListener('submit', function(e) {
-    var ingredients = Array.from(document.querySelectorAll('[name="ingredient"]')).map(function(input) {
-        return input.value;
+
+    document.getElementById('add-etape').addEventListener('click', function () {
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.className = ' formControl size';
+        input.placeholder = 'Etape';
+        input.name = 'etape';
+        document.getElementById('etapes').appendChild(input);
     });
-    var etapes = Array.from(document.querySelectorAll('[name="etape"]')).map(function(input) {
-        return input.value;
+
+    document.getElementById('remove-etape').addEventListener('click', function () {
+        var etapesDiv = document.getElementById('etapes');
+        if (etapesDiv.children.length > 1) {
+            etapesDiv.removeChild(etapesDiv.lastChild);
+        }
     });
-    document.querySelector('[name="ingredients"]').value = ingredients.join(';');
-    document.querySelector('[name="etapes"]').value = etapes.join(';');
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+        var ingredients = Array.from(document.querySelectorAll('[name="ingredient"]')).map(function (input) {
+            return input.value;
+        });
+        var etapes = Array.from(document.querySelectorAll('[name="etape"]')).map(function (input) {
+            return input.value;
+        });
+        document.querySelector('[name="ingredients"]').value = ingredients.join(';');
+        document.querySelector('[name="etapes"]').value = etapes.join(';');
 
 
-});
+    });
 
-document.querySelector('input[type="file"]').addEventListener('change', function(event) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        document.querySelector('.img-update').src = e.target.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        var ingredients = "<?php echo $recepy['0']['ingredient']; ?>".split(';');
+        var etapes = "<?php echo $recepy['0']['etape']; ?>".split(';');
+
+        ingredients.forEach(function (ingredient, index) {
+            if (index === 0) {
+                var input = document.querySelector('[name="ingredient"]');
+                input.value = ingredient;
+            } else {
+                var input = document.createElement('input');
+                input.type = 'text';
+                input.className = ' formControl size';
+                input.placeholder = 'Ingredient';
+                input.name = 'ingredient';
+                input.value = ingredient;
+                document.getElementById('ingredients').appendChild(input);
+            }
+
+        });
+
+        etapes.forEach(function (etape, index) {
+            if (index === 0) {
+                var input = document.querySelector('[name="etape"]');
+                input.value = etape;
+            } else {
+                var input = document.createElement('input');
+                input.type = 'text';
+                input.className = ' formControl size';
+                input.placeholder = 'Etape';
+                input.name = 'etape';
+                input.value = etape;
+                document.getElementById('etapes').appendChild(input);
+            }
+        });
+    });
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+        var ingredients = Array.from(document.querySelectorAll('[name="ingredient"]')).map(function (input) {
+            return input.value;
+        });
+        var etapes = Array.from(document.querySelectorAll('[name="etape"]')).map(function (input) {
+            return input.value;
+        });
+        document.querySelector('[name="ingredients"]').value = ingredients.join(';');
+        document.querySelector('[name="etapes"]').value = etapes.join(';');
+
+
+    });
+
+    document.querySelector('input[type="file"]').addEventListener('change', function (event) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.querySelector('.img-update').src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
 </script>
 
 <?php require_once 'parts/footer.php'; ?>
