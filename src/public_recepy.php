@@ -21,32 +21,34 @@ $recepies = $request->fetchAll(PDO::FETCH_ASSOC);
     <?php foreach ($recepies as $index => $recepy): ?>
 
 
-        <div class="<?php echo $index % 2 == 0 ? 'left' : 'right'; ?> post mb-3">
-            <div class="leftPart">
-                <h1><?php echo htmlspecialchars($recepy['title']); ?></h1>
-                <ul>
-                    <?php
+    <div class="<?php echo $index % 2 == 0 ? 'left' : 'right'; ?> post mb-3">
+        <div class="leftPart">
+            <h1><?php echo htmlspecialchars($recepy['title']); ?></h1>
+            <ul>
+                <?php
                     $recepy['ingredient'] = explode(";", $recepy['ingredient']);
 
                     foreach ($recepy['ingredient'] as $ingredient): ?>
-                        <li><?php echo htmlspecialchars($ingredient); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-                <ul>
-                    <?php
+                <li><?php echo htmlspecialchars($ingredient); ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <ul>
+                <?php
                     $recepy['etape'] = explode(";", $recepy['etape']);
 
                     foreach ($recepy['etape'] as $etape): ?>
-                        <li><?php echo htmlspecialchars($etape); ?></li>
+                <li><?php echo htmlspecialchars($etape); ?></li>
 
-                    <?php endforeach;
+                <?php endforeach;
                     ?>
-                </ul>
-            </div>
-            <div class="rightPart">
-                <img class="img" src="<?php echo $recepy['image'] ?>" alt="Image du post">
-                <div class="contain-options">
-                    <?php
+            </ul>
+        </div>
+        <div class="rightPart">
+            <img class="img" src="<?php echo $recepy['image'] ?>" alt="Image du post">
+            <div class="contain-options">
+                <?php
+
+                    if (isset($_SESSION['id'])):
                     $userId = $_SESSION['id'];
                     $postId = $recepy['id'];
 
@@ -55,32 +57,33 @@ $recepies = $request->fetchAll(PDO::FETCH_ASSOC);
                     $query->bindParam(':recepyid', $postId);
                     $query->execute();
                     ?>
-                    <?php if ($query->rowCount() > 0): ?>
-                        <form action="scripts/recepy-like/recepy-like.php" method="POST">
-                            <input type="hidden" name="recepy_id" value="<?php echo $recepy['id']; ?>">
-                            <button type="submit" value="envoyer" class="btn btn-primary update toolTip">
-                                <i class="fa-solid fa-heart"></i>
-                                <span class="toolTipText">Unlike</span>
-                            </button>
-                        </form>
-                    <?php else: ?>
-                        <form action="scripts/recepy-like/recepy-like.php" method="POST">
-                            <input type="hidden" name="recepy_id" value="<?php echo $recepy['id']; ?>">
-                            <button type="submit" value="envoyer" class="btn btn-primary update toolTip">
-                                <i class="fa-regular fa-heart"></i>
-                                <span class="toolTipText">Like</span>
-                            </button>
-                        </form>
-                    <?php endif; ?>
-                    <div class="btn btn-primary "> like: <?php echo htmlspecialchars($recepy['liked']) ?>
-                    </div>
+                <?php if ($query->rowCount() > 0): ?>
+                <form action="scripts/recepy-like/recepy-like.php" method="POST">
+                    <input type="hidden" name="recepy_id" value="<?php echo $recepy['id']; ?>">
+                    <button type="submit" value="envoyer" class="btn btn-primary update toolTip">
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="toolTipText">Unlike</span>
+                    </button>
+                </form>
+                <?php else: ?>
+                <form action="scripts/recepy-like/recepy-like.php" method="POST">
+                    <input type="hidden" name="recepy_id" value="<?php echo $recepy['id']; ?>">
+                    <button type="submit" value="envoyer" class="btn btn-primary update toolTip">
+                        <i class="fa-regular fa-heart"></i>
+                        <span class="toolTipText">Like</span>
+                    </button>
+                </form>
+                <?php endif; ?>
+                <?php endif; ?>
+                <div class="btn btn-primary "> like: <?php echo htmlspecialchars($recepy['liked']) ?>
                 </div>
             </div>
-
         </div>
 
+    </div>
 
-        <?php
+
+    <?php
     endforeach; ?>
 </section>
 
