@@ -32,71 +32,75 @@ require_once 'parts/header.php';
         </div>
         <input type="file" class="formControl" placeholder="file" name="file">
 
+
         <input type="hidden" id="combinedIngredients" name="ingredients">
         <input type="hidden" id="combinedEtapes" name="etapes">
     </div>
+    <div>
+        <input type="checkbox" name="private" value="0"> private
+    </div class="mb-3">
 
     <?php if (isset($_GET['error'])): ?>
-        <div class="alert alert-danger">
-            <?php echo $_GET['error']; ?>
-        </div>
+    <div class="alert alert-danger">
+        <?php echo $_GET['error']; ?>
+    </div>
     <?php endif; ?>
 
     <?php if (isset($_GET['success'])): ?>
-        <div class="alert alert-success">
-            <?php echo $_GET['success']; ?>
-        </div>
+    <div class="alert alert-success">
+        <?php echo $_GET['success']; ?>
+    </div>
     <?php endif; ?>
 
     <input type="submit" value="Envoyer" class="btn btn-primary">
 </form>
 
 <script>
-    document.getElementById('add-ingredient').addEventListener('click', function () {
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.className = ' formControl size';
-        input.placeholder = 'Ingredient';
-        input.name = 'ingredient';
-        document.getElementById('ingredients').appendChild(input);
+document.getElementById('add-ingredient').addEventListener('click', function() {
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.className = ' formControl size';
+    input.placeholder = 'Ingredient';
+    input.name = 'ingredient';
+    document.getElementById('ingredients').appendChild(input);
+});
+
+document.getElementById('remove-ingredient').addEventListener('click', function() {
+    var ingredientsDiv = document.getElementById('ingredients');
+    if (ingredientsDiv.children.length > 1) {
+        ingredientsDiv.removeChild(ingredientsDiv.lastChild);
+    }
+});
+
+
+document.getElementById('add-etape').addEventListener('click', function() {
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.className = ' formControl size';
+    input.placeholder = 'Etape';
+    input.name = 'etape';
+    document.getElementById('etapes').appendChild(input);
+});
+
+document.getElementById('remove-etape').addEventListener('click', function() {
+    var etapesDiv = document.getElementById('etapes');
+    if (etapesDiv.children.length > 1) {
+        etapesDiv.removeChild(etapesDiv.lastChild);
+    }
+});
+
+document.querySelector('#create-post').addEventListener('submit', function(e) {
+    var ingredients = Array.from(document.querySelectorAll('[name="ingredient"]')).map(function(input) {
+        return input.value;
     });
-
-    document.getElementById('remove-ingredient').addEventListener('click', function () {
-        var ingredientsDiv = document.getElementById('ingredients');
-        if (ingredientsDiv.children.length > 1) {
-            ingredientsDiv.removeChild(ingredientsDiv.lastChild);
-        }
+    var etapes = Array.from(document.querySelectorAll('[name="etape"]')).map(function(input) {
+        return input.value;
     });
+    document.querySelector('[name="ingredients"]').value = ingredients.join(';');
+    document.querySelector('[name="etapes"]').value = etapes.join(';');
 
 
-    document.getElementById('add-etape').addEventListener('click', function () {
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.className = ' formControl size';
-        input.placeholder = 'Etape';
-        input.name = 'etape';
-        document.getElementById('etapes').appendChild(input);
-    });
-
-    document.getElementById('remove-etape').addEventListener('click', function () {
-        var etapesDiv = document.getElementById('etapes');
-        if (etapesDiv.children.length > 1) {
-            etapesDiv.removeChild(etapesDiv.lastChild);
-        }
-    });
-
-    document.querySelector('#create-post').addEventListener('submit', function (e) {
-        var ingredients = Array.from(document.querySelectorAll('[name="ingredient"]')).map(function (input) {
-            return input.value;
-        });
-        var etapes = Array.from(document.querySelectorAll('[name="etape"]')).map(function (input) {
-            return input.value;
-        });
-        document.querySelector('[name="ingredients"]').value = ingredients.join(';');
-        document.querySelector('[name="etapes"]').value = etapes.join(';');
-
-
-    });
+});
 </script>
 
 <?php require_once 'parts/footer.php'; ?>
