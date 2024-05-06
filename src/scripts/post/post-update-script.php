@@ -6,6 +6,13 @@ $title = $_POST['title'];
 $ingredient = $_POST['ingredients'];
 $etape = $_POST['etapes'];
 
+if (empty($_POST['private'])) {
+    $private = 0;
+} else {
+    $private = $_POST['private'];
+}
+;
+
 $connectDatabase = new PDO("mysql:host=db;dbname=wordpress", "root", "admin");
 
 $allowedPhotoTypes = array(
@@ -31,13 +38,14 @@ if ($_FILES['file']['size'] > 0) {
             }
         }
     }
-    $request = $connectDatabase->prepare("UPDATE recepy SET title = :title, ingredient = :ingredient, etape = :etape, image = :image WHERE id = :id");
+    $request = $connectDatabase->prepare("UPDATE recepy SET title = :title, ingredient = :ingredient, etape = :etape, image = :image, private = :private WHERE id = :id");
     //bind params
     $request->bindParam(':title', $title);
     $request->bindParam(':ingredient', $ingredient);
     $request->bindParam(':etape', $etape);
     $request->bindParam(':image', $image);
     $request->bindParam(':id', $id);
+    $request->bindParam(':private', $private);
     //execute request
     $request->execute();
 
@@ -45,12 +53,13 @@ if ($_FILES['file']['size'] > 0) {
 }
 
 //prepare request
-$request = $connectDatabase->prepare("UPDATE recepy SET title = :title, ingredient = :ingredient, etape = :etape WHERE id = :id");
+$request = $connectDatabase->prepare("UPDATE recepy SET title = :title, ingredient = :ingredient, etape = :etape, private = :private WHERE id = :id");
 //bind params
 $request->bindParam(':title', $title);
 $request->bindParam(':ingredient', $ingredient);
 $request->bindParam(':etape', $etape);
 $request->bindParam(':id', $id);
+$request->bindParam(':private', $private);
 
 //execute request
 $request->execute();

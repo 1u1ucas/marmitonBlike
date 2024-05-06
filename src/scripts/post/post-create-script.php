@@ -25,10 +25,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
     }
 
 
+
     $title = $_POST['title'];
     $ingredient = $_POST['ingredients'];
     $etape = $_POST['etapes'];
     $userid = $_SESSION['id'];
+    if (empty($_POST['private'])) {
+        $private = 0;
+    } else {
+        $private = $_POST['private'];
+    }
 
     if (empty($title) || empty($ingredient) || empty($etape)) {
         header("Location: ../../createRecepy.php?error=Veuillez renseigner un titre, les ingrédients et les étapes.");
@@ -36,13 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
     }
 
     $connectDatabase = new PDO("mysql:host=db;dbname=wordpress", "root", "admin");
-    $request = $connectDatabase->prepare("INSERT INTO recepy (title, ingredient, etape, userid, image) VALUES (:title, :ingredient, :etape, :userid, :image)");
+    $request = $connectDatabase->prepare("INSERT INTO recepy (title, ingredient, etape, userid, image, private) VALUES (:title, :ingredient, :etape, :userid, :image, :private)");
 
     $request->bindParam(':title', $title);
     $request->bindParam(':ingredient', $ingredient);
     $request->bindParam(':etape', $etape);
     $request->bindParam(':userid', $userid);
     $request->bindParam(':image', $image);
+    $request->bindParam(':private', $private);
 
     if (!$request->execute()) {
         header("Location: ../../createRecepy.php?error=Une erreur s'est produite lors de l'ajout du post.");

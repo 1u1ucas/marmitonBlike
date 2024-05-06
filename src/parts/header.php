@@ -1,9 +1,8 @@
 <?php
 
 session_start();
-if (!isset($_SESSION["id"]) && basename($_SERVER['PHP_SELF']) != 'index.php') {
+if (!isset($_SESSION["id"]) && !in_array(basename($_SERVER['PHP_SELF']), ['index.php', 'sign_up.php'])) {
     header("Location: index.php");
-
 }
 
 ?>
@@ -28,7 +27,7 @@ if (!isset($_SESSION["id"]) && basename($_SERVER['PHP_SELF']) != 'index.php') {
 
 </head>
 
-<body>
+<body class="mx-2">
     <nav class="navbar text-center p-3 ">
         <?php
         if (basename($_SERVER['PHP_SELF']) == 'createRecepy.php' || basename($_SERVER['PHP_SELF']) == 'recepyUpdate.php'): ?>
@@ -38,6 +37,8 @@ if (!isset($_SESSION["id"]) && basename($_SERVER['PHP_SELF']) != 'index.php') {
             <a href="index.php">Log-in</a>
         <?php elseif (isset($_SESSION['id'])): ?>
             <a href="../scripts/sign-out/sign-out.php">Disconnect</a>
+            <a href="recepy.php">Page de mes recette</a>
+            <a href="public_recepy.php">Recette public</a>
         <?php endif;
 
 
