@@ -1,8 +1,9 @@
 <?php
 
 session_start();
-if (!isset($_SESSION["id"]) && !basename($_SERVER['PHP_SELF']) == 'index.php') {
+if (!isset($_SESSION["id"]) && basename($_SERVER['PHP_SELF']) != 'index.php') {
     header("Location: index.php");
+
 }
 
 ?>
