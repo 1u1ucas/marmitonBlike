@@ -23,5 +23,6 @@ $_SESSION['ingredient'] = $recepy['0']['ingredient'];
 $_SESSION['etape'] = $recepy['0']['etape'];
 $_SESSION['userid'] = $recepy['0']['userid'];
 $_SESSION['image'] = $recepy['0']['image'];
+$_SESSION['private'] = $recepy['0']['private'];
 
 header('Location: ../../recepy.php?success=Le post a bien été copié');

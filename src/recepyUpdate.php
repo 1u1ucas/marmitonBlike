@@ -51,7 +51,6 @@ $recepy = $request->fetchAll(PDO::FETCH_ASSOC);
         <input type="checkbox" name="private" value="1" <?php echo ($recepy['0']['private'] == 1) ? 'checked' : '' ?>>
         public
     </div>
-    <?php var_dump($recepy['0']['private']) ?>
 
     <?php if (isset($_GET['error'])): ?>
         <div class="alert alert-danger">

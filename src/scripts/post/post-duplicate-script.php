@@ -19,13 +19,14 @@ $request->execute();
 $recepy = $request->fetchAll(PDO::FETCH_ASSOC);
 
 
-$request = $connectDatabase->prepare("INSERT INTO recepy (title, ingredient, etape, userid, image) VALUES (:title, :ingredient, :etape, :userid, :image)");
+$request = $connectDatabase->prepare("INSERT INTO recepy (title, ingredient, etape, userid, image, private) VALUES (:title, :ingredient, :etape, :userid, :image, :private)");
 
 $request->bindParam(':title', $recepy['0']['title']);
 $request->bindParam(':ingredient', $recepy['0']['ingredient']);
 $request->bindParam(':etape', $recepy['0']['etape']);
 $request->bindParam(':userid', $recepy['0']['userid']);
 $request->bindParam(':image', $recepy['0']['image']);
+$request->bindParam(':private', $recepy['0']['private']);
 
 $request->execute();
 

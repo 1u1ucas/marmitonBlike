@@ -26,6 +26,10 @@ $request->execute();
 // //fetch all data from table posts
 $users = $request->fetch(PDO::FETCH_ASSOC);
 
+if (empty($users)) {
+    header("Location: ../../index.php?error=Email or password is incorrect");
+    die(); // stop the script
+}
 $isValidPassword = password_verify($password, $users['password']);
 
 if (empty($users || !$isValidPassword)) {
