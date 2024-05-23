@@ -10,7 +10,8 @@ marmitonBlike est une application de recettes de cuisine. Vous pouvez créer, pa
 
 <img width="918" alt="image" src="https://github.com/1u1ucas/marmitonBlike/assets/40892245/b322315c-5c6f-4ef7-949d-2865febf09f3">
 
-<img width="928" alt="image" src="https://github.com/1u1ucas/marmitonBlike/assets/40892245/99fc5e21-b562-4497-8265-0ff836957421">
+<img width="919" alt="image" src="https://github.com/1u1ucas/marmitonBlike/assets/40892245/03ad7e16-2b31-4688-b0df-e2af3dd0266c">
+
 
 ## Fonctionnalités
 
